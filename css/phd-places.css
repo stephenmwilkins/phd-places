@@ -1,0 +1,30 @@
+
+
+body {
+  font-family: 'Raleway', sans-serif;
+  font-size: 12pt;
+}
+
+.table_header {
+  font-weight: bold;
+  font-size: 14pt;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td {
+  padding:5px;
+  min-width: 150px;
+  border:0px;
+  margin:0px;
+}
+
+tr:hover {
+    background-color: #E5E5E5;
+}
+
+tr:hover td {
+    background-color: transparent; /* or #000 */
+}
