@@ -6,15 +6,15 @@
 var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT1lGRmLk1cjZWHXbtgvQHH-y8POFO7eV6lfQtp3dTbEpfnlbblE_AZ9IUxG48PHdSb9LmqD2ildN5F/pub?gid=0&single=true&output=csv';
 
 
-function init() {
+function initTable() {
   Papa.parse(public_spreadsheet_url, {
     download: true,
     header: true,
-    complete: showInfo
+    complete: saveData
   })
 }
 
-window.addEventListener('DOMContentLoaded', init)
+window.addEventListener('DOMContentLoaded', initTable)
 
 
 var topics = {};
@@ -27,20 +27,17 @@ $(document).ready(function() {
   $(".checkbox").change(function() {
     topics[this.id] = this.checked;
     console.log(topics);
-    init();
+    showInfo();
   });
 
 });
 
+function saveData(results) {
+    window.data = results.data
+    showInfo();
+}
 
-
-
-
-function showInfo(results) {
-
-  console.log('here');
-
-  window.data = results.data
+function showInfo() {
 
   // CREATE DYNAMIC TABLE.
   var table = document.createElement("table");
@@ -50,10 +47,6 @@ function showInfo(results) {
 
   var tr = table.insertRow(-1);
   var columns = ['Group','Institution','Topics','Website','Email'];
-
-
-
-
 
   for (var i=0; i<columns.length; i++) {
     var tabCell = tr.insertCell(-1);
