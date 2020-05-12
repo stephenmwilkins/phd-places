@@ -3,8 +3,10 @@
 
 
 
-var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT1lGRmLk1cjZWHXbtgvQHH-y8POFO7eV6lfQtp3dTbEpfnlbblE_AZ9IUxG48PHdSb9LmqD2ildN5F/pub?gid=0&single=true&output=csv';
+// var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT1lGRmLk1cjZWHXbtgvQHH-y8POFO7eV6lfQtp3dTbEpfnlbblE_AZ9IUxG48PHdSb9LmqD2ildN5F/pub?gid=0&single=true&output=csv';
 
+
+var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQv_QDwI-5bLDQVH4a3kBuuIdKrGvuNYd4uOVtRjJRJduUHPN_kcmYYxPIPrgXiKENlPTiuXYZs_Ypb/pub?gid=898080687&single=true&output=csv'
 
 function initTable() {
   Papa.parse(public_spreadsheet_url, {
@@ -18,9 +20,13 @@ window.addEventListener('DOMContentLoaded', initTable)
 
 
 var topics = {};
-topics["cosmology"] = true;
-topics["simulations"] = true;
-topics["extragalactic"] = true;
+topics["Cosmology"] = true;
+topics["Simulations"] = true;
+topics["Galaxies"] = true;
+topics["Earth and Planetary"] = true;
+topics["High Energy"] = true;
+topics["Instrumentation"] = true;
+topics["Solar and Stellar"] = true;
 
 $(document).ready(function() {
 
@@ -59,7 +65,7 @@ function showInfo() {
 
       d = window.data[j];
       var tr = table.insertRow(-1);
-
+      console.log(d);
       var inc = false;
 
       var group_topics = d['Topics'].split(",");
@@ -67,12 +73,11 @@ function showInfo() {
 
       for (var i=0; i<group_topics.length; i++) {
 
-        console.log(group_topics[i], topics[group_topics[i]]);
-        if (topics[group_topics[i]]) {
+        console.log(group_topics[i], topics[group_topics[i].trim()]);
+        if (topics[group_topics[i].trim()]) {
           inc = true;
         }
       }
-
 
       if (inc) {
 
@@ -80,6 +85,8 @@ function showInfo() {
 
           var tabCell = tr.insertCell(-1);
           column = columns[i];
+
+
 
           if (column==='Website') {
               tabCell.innerHTML = '<a href="'+d['Website']+'">website</a>';
